@@ -2,7 +2,14 @@
 
 ## Overview
 
-This repository contains a C++/WinForms implementation of various numerical methods for mathematical computations. The application provides both a graphical interface and core numerical algorithms for solving equations, interpolation, integration, and differential equations. The system features a robust equation parser, multiple root-finding techniques, and support for handling both explicit and implicit functions.
+This repository hosts a robust **C++/WinForms** application designed to perform various numerical methods for mathematical computations. It provides a user-friendly graphical interface alongside a powerful core engine for parsing and solving complex mathematical equations.
+
+The application serves as a comprehensive tool for students, engineers, and researchers to visualize and compute solutions for:
+*   **Root Finding**: Solving non-linear equations.
+*   **Numerical Integration**: Computing definite integrals.
+*   **Interpolation**: Estimating unknown values from discrete data points.
+*   **Differential Equations**: Solving Ordinary Differential Equations (ODEs) numerically.
+*   **Curve Fitting**: Finding the best-fit curve for a set of data points.
 
 ![Application Interface]
 
@@ -17,119 +24,97 @@ This repository contains a C++/WinForms implementation of various numerical meth
 
 ## Key Features
 
-### 1. **Equation Parser Engine**
-- Supports variables `x` and `y`
-- Handles mathematical functions (`sin`, `cos`, `exp`, etc.)
-- Recognizes constants (`pi`, `e`)
-- Validates equation syntax and parentheses
-- Uses shunting yard algorithm 
-- Converts infix to postfix notation
-- Error handling for invalid expressions
+### 1. Advanced Equation Parser Engine
+The core of the application is a custom-built equation parser that interprets user input strings into executable mathematical logic.
+-   **Variable Support**: Handles single (`x`) and multi-variable (`x`, `y`) equations.
+-   **Mathematical Functions**: Supports a wide range of functions including trigonometric (`sin`, `cos`, `tan`, `asin`, `acos`, `atan`), hyperbolic (`sinh`, `cosh`, `tanh`), exponential (`exp`, `sqrt`), and logarithmic (`log`, `ln`).
+-   **Constants**: Recognizes standard constants like `pi` ($\pi$) and `e`.
+-   **Algorithm**: Utilizes the **Shunting Yard Algorithm** to convert infix expressions (standard mathematical notation) to postfix notation (Reverse Polish Notation) for efficient evaluation.
+-   **Validation**: Includes robust syntax checking for mismatched parentheses, invalid operators, and unsupported characters.
 
 ### 2. Root Finding Methods
-| Method          | Features                              |
-|-----------------|---------------------------------------|
-| **Bisection**   | Guaranteed convergence, error bounds  |
-| **Secant**      | Fast convergence, derivative-free    |
+Accurately find roots of non-linear equations $f(x) = 0$.
+
+| Method | Description | Convergence |
+| :--- | :--- | :--- |
+| **Bisection Method** | Bracketing method that repeatedly bisects an interval and selects a sub-interval in which a root must lie. | Guaranteed, Linear |
+| **Secant Method** | Iterative method using a succession of roots of secant lines to better approximate a root of a function. | Superlinear |
+| **Newton-Raphson** | (Implemented in code) Uses the function and its derivative to rapidly converge to a root. | Quadratic |
 
 ### 3. Numerical Integration
-- Trapezoidal Rule
-- Simpson's 1/3 Rule
-- Simpson's 3/8 Rule
-- Automatic table generation
-- Custom point input support
+Compute the definite integral $\int_{a}^{b} f(x) dx$ using numerical approximation techniques.
+-   **Trapezoidal Rule**: Approximates the region under the graph of the function as a trapezoid and calculates its area.
+-   **Simpson's 1/3 Rule**: Uses quadratic polynomials for a more accurate approximation.
+-   **Simpson's 3/8 Rule**: Uses cubic interpolation for higher accuracy with appropriate intervals.
+-   **Features**: Supports automatic table generation and custom data point input.
 
-### 4. Ordinary Differential Equations
-- Basic Euler Method
-- Modified Euler (Heun's) Method
-- Step size control
-- Tabular solution output
+### 4. Ordinary Differential Equations (ODEs)
+Solve first-order ODEs of the form $y' = f(x, y)$.
+-   **Euler's Method**: A basic explicit method for solving ordinary differential equations.
+-   **Modified Euler's Method (Heun's Method)**: An improvement on Euler's method that achieves higher accuracy by averaging the slope.
+-   **Output**: Generates a step-by-step tabular solution displaying $x$, $y_{predictor}$, and $y_{corrector}$ values.
 
-### 5. Interpolation
-- Lagrange and Newton Polynomial Interpolation
-- Inverse interpolation support
-- Error estimation
+### 5. Interpolation & Curve Fitting
+Construct new data points within the range of a discrete set of known data points.
+-   **Lagrange Interpolation**: Polynomial interpolation that passes through all given data points.
+-   **Newton's Divided Difference**: Useful for polynomial interpolation, especially when data points are added dynamically.
+-   **Least Squares Curve Fitting**: Finds the best-fitting curve (linear, polynomial, exponential) that minimizes the sum of squared residuals.
 
 ## Installation
 
-### Requirements
-- Windows 10/11
-- .NET Framework 4.8
-- Visual Studio 2022 (for development)
-- C++17 compatible compiler
+### Prerequisites
+*   **Operating System**: Windows 10 or Windows 11.
+*   **Runtime**: .NET Framework 4.8 or later.
+*   **Development Environment** (for building from source):
+    *   Visual Studio 2019 or 2022.
+    *   Desktop development with C++ workload.
+    *   C++/CLI support (required for WinForms).
 
-### Quick Start
-1. Download pre-built binary from [Releases](https://github.com/marwan779/NumericalMethodsWinForms/releases)
-2. Run `NumericalMethods.exe`
-3. Enter equation in supported format:
-   - Example: `sin(x)*exp(-0.1*x)`
-   - Example: `log(2*y) + sqrt(pi)`
+### Running the Application
+1.  Navigate to the [Releases](https://github.com/marwan779/NumericalMethodsWinForms/releases) page.
+2.  Download the latest `NumericalMethods.zip` or executable.
+3.  Extract the files (if zipped) and run `Project1.exe` (or the renamed executable).
 
-### Build from Source
+### Building from Source
+To contribute or modify the code:
 ```bash
+# 1. Clone the repository
 git clone https://github.com/marwan779/NumericalMethodsWinForms.git
-cd NumericalMethodsWinForms
-# Open NumericalMethods.sln in Visual Studio
-# Build Solution (Ctrl+Shift+B)
+
+# 2. Open the solution file
+# Navigate to the directory and open "Project1.sln" in Visual Studio.
 ```
+3.  In Visual Studio, set the Solution Configuration to **Release** or **Debug**.
+4.  Build the solution: **Build** > **Build Solution** (or press `Ctrl+Shift+B`).
+5.  Run the application: **Debug** > **Start Without Debugging** (or press `Ctrl+F5`).
 
 ## Usage Guide
 
-### Root Finding Example
-```cpp
-// Using Bisection Method
-bisection solver("exp(x) - x^2", 0, 1, 1e-6, 100);
-cout << solver.GetResult();
-```
+### Example: Solving a Root Finding Problem (Bisection)
+1.  Launch the application and click on **Bisection**.
+2.  **Equation**: Enter your function, e.g., `x^3 - x - 2`.
+3.  **Interval**: Enter the start (`a`) and end (`b`) points, e.g., `1` and `2`.
+4.  **Tolerance**: Set the error tolerance, e.g., `0.0001`.
+5.  **Max Iterations**: Set a safeguard limit, e.g., `100`.
+6.  Click **Calculate**. The table will populate with each iteration step, showing the interval narrowing down to the root.
 
-### ODE Solving
-```cpp
-BasicEuler euler;
-euler.solve("y - x^2 + 1", 0, 0.5, 0.1, 10);
-cout << getEulerOutput();
-```
+### Example: Solving an ODE (Euler's Method)
+1.  Select **Euler & Modified Euler**.
+2.  **Equation**: Enter $f(x, y)$, e.g., `x + y`.
+3.  **Initial Conditions**: Set $x_0 = 0, y_0 = 1$.
+4.  **Target**: Set the target $x_{target} = 1$.
+5.  **Step Size ($h$)**: Enter `0.1`.
+6.  Click **Solve**. The grid will display the approximate $y$ value at each step $x$.
 
-### Equation Parsing
-```cpp
-EquationParser parser;
-parser.parseEquation("sin(pi*x) + 0.5*y");
-double result = parser.evaluate(0.5, 1.0);
-```
+## Project Structure
+*   **Parser.h/cpp**: The core equation parsing logic.
+*   **[Method].h/cpp**: Implementation files for specific numerical methods (e.g., `Bisection.cpp`, `Secant.cpp`).
+*   **[Method]Form.h**: The GUI forms corresponding to each method (e.g., `BisectionForm.h`).
+*   **MyForm.h**: The main dashboard/menu of the application.
 
-## Error Handling
-
-The system detects and reports:
-- Mathematical errors (division by zero, sqrt of negatives)
-- Syntax errors in equations
-- Convergence failures
-- Invalid input ranges
-- Numerical instability issues
-
-## Development Guidelines
-
-### Coding Standards
-- Follow RAII principles for resource management
-- Use `const` correctness
-- Exception safety guarantees
-- Doxygen-style comments for public APIs
-- 4-space indentation, Allman style braces
-
-### Testing
-```cpp
-// Example test case for parser
-TEST(EquationParserTest, HandlesBasicOperations) {
-    EquationParser parser;
-    parser.parseEquation("2+3*4");
-    ASSERT_NEAR(parser.evaluate(0), 14.0, 1e-6);
-}
-```
-
-
-**Contributors**:  
-- Marwan ([@marwan779](https://github.com/marwan779))
-- Abdelhamid ([@Abdelhamid108](https://github.com/Abdelhamid108))
-- Yehia Hamdy ([@YHS003](https://github.com/YHS003))
-- Fady Ahsraf ([fady1559](https://github.com/fady1559))
-- Ahmed Kandil ([@Ahmed-Kandil11](https://github.com/Ahmed-Kandil11))
-
-  
+## Contributors
+*   **Marwan** ([@marwan779](https://github.com/marwan779))
+*   **Abdelhamid** ([@Abdelhamid108](https://github.com/Abdelhamid108))
+*   **Yehia Hamdy** ([@YHS003](https://github.com/YHS003))
+*   **Fady Ashraf** ([@fady1559](https://github.com/fady1559))
+*   **Ahmed Kandil** ([@Ahmed-Kandil11](https://github.com/Ahmed-Kandil11))

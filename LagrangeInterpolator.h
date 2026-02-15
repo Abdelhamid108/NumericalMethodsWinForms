@@ -1,17 +1,41 @@
 #pragma once
 #include <vector>
 
+/**
+ * @brief Implements Lagrange Polynomial Interpolation.
+ *
+ * The Lagrange interpolation formula computes a polynomial P(x) of degree n-1
+ * that passes through n given data points.
+ */
 class LagrangeInterpolator {
 private:
-    std::vector<double> x;
-    std::vector<double> y;
+  std::vector<double> x; ///< Known x coordinates.
+  std::vector<double> y; ///< Known y coordinates.
 
 public:
-    LagrangeInterpolator(const std::vector<double>& xData, const std::vector<double>& yData);
+  /**
+   * @brief Constructs the interpolator with dataset.
+   * @param xData Vector of x coordinates.
+   * @param yData Vector of y coordinates.
+   */
+  LagrangeInterpolator(const std::vector<double> &xData,
+                       const std::vector<double> &yData);
 
-    // Interpolates to find Y given X
-    double interpolateY(double xValue) const;
+  /**
+   * @brief Interpolates Y for a given X value.
+   * @param xValue The point to evaluate.
+   * @return Estimated Y value.
+   */
+  double interpolateY(double xValue) const;
 
-    // Interpolates to find X given Y (inverse interpolation)
-    double interpolateInverse(double yValue) const;
+  /**
+   * @brief Inverse Interpolation: Estimates X for a given Y value.
+   *
+   * Swaps the roles of X and Y data arrays to find the pre-image.
+   * Note: This assumes the function is monotonic in the region of interest.
+   *
+   * @param yValue The target Y value.
+   * @return Estimated X value.
+   */
+  double interpolateInverse(double yValue) const;
 };
